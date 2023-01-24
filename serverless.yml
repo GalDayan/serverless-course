@@ -1,0 +1,24 @@
+service: auction-service
+
+plugins:
+  - serverless-bundle
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  memorySize: 256
+  stage: ${opt:stage, 'dev'}
+  region: ${aws:region, 'us-east-1'}
+  profile: PERSONAL
+  
+functions:
+  hello:
+    handler: src/handlers/hello.handler
+    events:
+      - http:
+          method: GET
+          path: /hello
+
+custom:
+  bundle:
+    linting: false
